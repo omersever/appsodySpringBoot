@@ -1,0 +1,59 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  annotations:
+    commit.image.appsody.dev/author: gokhanyilmaz <gokhanyilmaz>
+    commit.image.appsody.dev/committer: gokhanyilmaz <gokhanyilmaz>
+    commit.image.appsody.dev/date: Mon Feb 17 13:22:41 2020 +0300
+    commit.image.appsody.dev/message: first commit
+    image.opencontainers.org/created: "2020-02-17T13:24:50+03:00"
+    image.opencontainers.org/documentation: https://github.com/GkhnYlmz/appsodySpringBoot
+    image.opencontainers.org/revision: 9aa8cdc4dc8debb4dcf8351a083d28df13706088-modified
+    image.opencontainers.org/source: https://github.com/GkhnYlmz/appsodySpringBoot/tree/master
+    image.opencontainers.org/url: https://github.com/GkhnYlmz/appsodySpringBoot
+    stack.appsody.dev/authors: Erin Schnabel <schnabel@us.ibm.com>, Ozzy Osborne <ozzy@ca.ibm.com>
+    stack.appsody.dev/configured: docker.io/appsody/java-spring-boot2:0.3
+    stack.appsody.dev/created: "2020-02-10T16:55:23Z"
+    stack.appsody.dev/description: Spring Boot using OpenJ9 and Maven
+    stack.appsody.dev/licenses: Apache-2.0
+    stack.appsody.dev/tag: docker.io/appsody/java-spring-boot2:0.3.24
+    stack.appsody.dev/title: Spring Boot®
+  creationTimestamp: null
+  labels:
+    image.opencontainers.org/title: appsodyspringboot
+    stack.appsody.dev/id: java-spring-boot2
+    stack.appsody.dev/version: 0.3.24
+  name: appsodyspringboot
+spec:
+  applicationImage: dev.local/appsodyspringboot
+  createKnativeService: false
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /actuator/liveness
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  monitoring:
+    endpoints:
+    - path: /actuator/prometheus
+    labels:
+      k8s-app: appsodyspringboot
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /actuator/health
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    timeoutSeconds: 1
+  service:
+    annotations:
+      prometheus.io/path: /actuator/prometheus
+      prometheus.io/scrape: "true"
+    port: 8080
+    type: NodePort
+  stack: java-spring-boot2
+  version: 1.0.0
+status: {}
